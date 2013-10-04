@@ -35,7 +35,7 @@ public class Upload extends HttpServlet {
 		// APT: the BlobKey is not a url, so we use ImagesServiceFactory to get
 		// a URL to serve the image stored in the blob from
 		ImagesService imagesService = ImagesServiceFactory.getImagesService();
-		String bkUrl = imagesService.getServingUrl(blobKey) + "=s100";
+		String bkUrl = imagesService.getServingUrl(blobKey);
 
 		// note that these parameters are set when we do the
 		// blobstoreService.createUploadUrl() call

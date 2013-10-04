@@ -64,7 +64,7 @@ public class TestUploadAPIServlet {
     }
 
     public static void main(String[] args) {
-       TestUploadAPIServlet tmp = new TestUploadAPIServlet("http://apt-connexus.appspot.com/UploadServletAPI?streamId=5681726336532480&streamName=Second");
+       TestUploadAPIServlet tmp = new TestUploadAPIServlet("http://apt-connexus.appspot.com/UploadServletAPI?streamId=5629499534213120&streamName=First");
        tmp.makeHTTPPOSTRequest();
     }
  

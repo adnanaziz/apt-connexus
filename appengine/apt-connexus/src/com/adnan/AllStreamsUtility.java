@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Date;
 
+//AA: functionality subsumed by Selector
+@Deprecated
 class StreamSelector {
 	public long startDate;
 	public long endDate;

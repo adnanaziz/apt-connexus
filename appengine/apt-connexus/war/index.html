@@ -9,19 +9,42 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello App Engine</title>
+    <title>Release Notes</title>
   </head>
 
   <body>
-    <h1>Hello App Engine!</h1>
-	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="apt_connexus">Apt_connexus</a></td>
-      </tr>
-    </table>
-  </body>
+    
+    The AppEngine project <tt>apt-connexus.appspot.com</tt> implements a web app with the ability to create streams,  view  a stream, view all streams, upload to streams. The source is at https://github.com/adnanaziz/apt-connexus, specifically in the appengine subdirectory, organized as an Eclipse AppEngine project.<p>
+    
+    It also implements an web API which allows you to download streams, download images from a stream, and upload an image to a stream. The web API makes heavy use of <a href="https://code.google.com/p/google-gson/">GSON</a>, a library for converting Java objects to and from JSON strings.
+    <p>
+    
+    The web API consists of the following servlets:
+    
+    <ul>
+    <li> The servlet with URL pattern AllStreamsServletAPI returns a JSON formatted list of stream objects. Note that you can pass in a Selector object (in JSON format) to get a subset of Streams. See the Selector Java class for details. In the absence of a selector argument, all streams are returned.
+    
+    Here's a sample response:<br> 
+    <tt>
+    [{"id":5629499534213120,"name":"First","tags":"#APT #Connexus","createDate":"Oct 3, 2013 6:04:21 PM","coverImageUrl":"http://users.ece.utexas.edu/~adnan/adnan-new.JPG"},{"id":5681726336532480,"name":"Second","tags":"#longhorns #APTRocks","createDate":"Oct 3, 2013 6:05:32 PM","coverImageUrl":"https://d2bqvn92dlwp3w.cloudfront.net/img/salesperson.png"}]
+     </tt> 
+    
+    <li> The servlet with URL pattern SingleStreamServletAPI returns a JSON formatted list of connexus image objects. A Selector can be used similar to above.
+    <li> The servlet with URL pattern UploadServletAPI takes a JSON string with a latitude, longitude, and physical image (which is a JSON encoded byte array) and a streamId (encoded in the URL) and adds the image to the blobstore and creates a corresponding connexus image, which is  added to the datastore. It does not return anything.
+    </ul>
+    See web.xml for the map from servlet names to corresponding Java implementations.
+    <p>
+    
+    The file <a href="https://github.com/adnanaziz/apt-connexus/blob/master/web-api-test/TestUploadAPIServlet.java">TestUploadAPIServlet.java</a> shows how  to use the web API to upload images to a stream from a Java client. (Note that this source requires a number of jars to run; they are included in the same directory, along with Makefile that show how to build it.)
+    <p>
+   
+   You can use the source files to build your own web API, or just use the apt-connexus service itself.
+   
+     
+   <hr>    
+   Here's the <a href="ViewAllStreams.jsp">link</a> to all the streams.
+   <p>
+   
+  
+   </body>
 </html>

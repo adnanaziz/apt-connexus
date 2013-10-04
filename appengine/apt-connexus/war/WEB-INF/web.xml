@@ -7,7 +7,7 @@
 
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>ViewAllStreams.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
   </welcome-file-list>
    
    <servlet>
@@ -27,7 +27,7 @@
 
   <servlet-mapping>
 	<servlet-name>allstreamsservlet</servlet-name>
-	<url-pattern>AllStreamsServlet</url-pattern>
+	<url-pattern>AllStreamsServletAPI</url-pattern>
   </servlet-mapping>
   
   <servlet>

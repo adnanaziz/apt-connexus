@@ -26,15 +26,20 @@
 		
     
  <%
-	List<Stream> allStreams = OfyService.ofy().load().type(Stream.class).list();
-	Collections.sort(allStreams);
-	int i = 0;
-	for (Stream s : allStreams ) {
-	  if (s.name.contains(request.getParameter("searchString"))) {
-	    %> <img width="100" height="100" src="<%= s.coverImageUrl %>"> <br><%= s.name %><br>
-        <a href="ShowStream.jsp?streamId=<%= s.id%>&streamName=<%= s.name %>"</a> <%
-      } 
-   } 
+ 	String searchString = request.getParameter("searchString");
+ 	if ( searchString != null) {
+	  List<Stream> allStreams = OfyService.ofy().load().type(Stream.class).list();
+	  Collections.sort(allStreams);
+	  int i = 0;
+	  for (Stream s : allStreams ) {
+	    if (s.name.contains(searchString)) {
+	      %> <img width="100" height="100" src="<%= s.coverImageUrl %>"> <br><%= s.name %><br>
+          <a href="ShowStream.jsp?streamId=<%= s.id%>&streamName=<%= s.name %>"</a> <%
+        } 
+     } 
+   } else {
+     %><h2>Need to provide a search string!</h2><%
+   }
 %>
   
   </body>

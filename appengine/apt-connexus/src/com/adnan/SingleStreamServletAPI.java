@@ -16,9 +16,24 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public class SingleStreamServletAPI extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+		
 		List<ConnexusImage> allImages = OfyService.ofy().load().type(ConnexusImage.class).list();
 		Long streamId = new Long(req.getParameter("streamId"));
+		List<ConnexusImage> subsetImages = null;
+		
 		List<ConnexusImage> result = new ArrayList<ConnexusImage>();
+		
+		String jsonSelector = req.getParameter("selector");
+		System.out.println(jsonSelector);
+        if ( jsonSelector == null ) {
+           subsetImages = allImages;
+        } else {
+          Gson gson = new Gson();
+          Type t = new TypeToken<Selector>(){}.getType();
+          Selector sel = gson.fromJson(jsonSelector, t);
+          subsetImages = sel.selectImages(allImages, streamId);
+        }
+        
 		for (ConnexusImage s : allImages ) {
 			if ( s.streamId.equals(streamId) ) {
 				result.add(s);
