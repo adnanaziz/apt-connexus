@@ -103,7 +103,7 @@ public class UploadServletAPI extends HttpServlet {
 		String imageUrl = ImagesServiceFactory.getImagesService()
 				.getServingUrl(
 						ServingUrlOptions.Builder.withBlobKey(blobKey)
-								.secureUrl(true));
+								.secureUrl(true)) + "=s100";
 
 		System.out.println(imageUrl);
 		

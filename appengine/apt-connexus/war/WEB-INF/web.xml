@@ -9,6 +9,16 @@
   <welcome-file-list>
     <welcome-file>ViewAllStreams.jsp</welcome-file>
   </welcome-file-list>
+   
+   <servlet>
+	<servlet-name>resizeservlet</servlet-name>
+	<servlet-class>com.adnan.ResizeServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>resizeservlet</servlet-name>
+	<url-pattern>ResizeServlet</url-pattern>
+  </servlet-mapping>
   
    <servlet>
 	<servlet-name>allstreamsservlet</servlet-name>
