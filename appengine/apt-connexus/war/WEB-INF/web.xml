@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>ViewAllStreams.jsp</welcome-file>
+  </welcome-file-list>
+  
+   <servlet>
+	<servlet-name>allstreamsservlet</servlet-name>
+	<servlet-class>com.adnan.AllStreamsServletAPI</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>allstreamsservlet</servlet-name>
+	<url-pattern>AllStreamsServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>createstreamservlet</servlet-name>
+	<servlet-class>com.adnan.CreateStreamServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>createstreamservlet</servlet-name>
+	<url-pattern>createStreamServlet</url-pattern>
+  </servlet-mapping>
+
+    <servlet>
+	<servlet-name>singlestreamservletAPI</servlet-name>
+	<servlet-class>com.adnan.SingleStreamServletAPI</servlet-class>
+  </servlet>
+	
+  <servlet-mapping>
+	<servlet-name>singlestreamservletAPI</servlet-name>
+	<url-pattern>SingleStreamServletAPI</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>uploadservletAPI</servlet-name>
+	<servlet-class>com.adnan.UploadServletAPI</servlet-class>
+  </servlet>
+	
+  <servlet-mapping>
+	<servlet-name>uploadservletAPI</servlet-name>
+	<url-pattern>UploadServletAPI</url-pattern>
+  </servlet-mapping>
+  	
+  <servlet>
+	<servlet-name>Upload</servlet-name>
+	<servlet-class>com.adnan.Upload</servlet-class>
+  </servlet>
+	
+  <servlet-mapping>
+	<servlet-name>Upload</servlet-name>
+	<url-pattern>upload</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Filters -->
+  	<filter>
+		<filter-name>ObjectifyFilter</filter-name>
+		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ObjectifyFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+
+</web-app>
