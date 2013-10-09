@@ -33,8 +33,8 @@
 	  int i = 0;
 	  for (Stream s : allStreams ) {
 	    if (s.name.contains(searchString)) {
-	      %> <img width="100" height="100" src="<%= s.coverImageUrl %>"> <br><%= s.name %><br>
-          <a href="ShowStream.jsp?streamId=<%= s.id%>&streamName=<%= s.name %>"</a> <%
+	      %> <img width="100" height="100" src="<%= s.coverImageUrl %>"> <br>
+          <a href="ShowStream.jsp?streamId=<%= s.id%>&streamName=<%= s.name %>"> <%= s.name %> </a> <br> <%
         } 
      } 
    } else {

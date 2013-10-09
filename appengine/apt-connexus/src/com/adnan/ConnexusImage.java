@@ -23,12 +23,12 @@ public class ConnexusImage implements Comparable<ConnexusImage> {
 	@SuppressWarnings("unused")
 	private ConnexusImage() {
 	}
+	static {
+		com.googlecode.objectify.ObjectifyService.factory().register(ConnexusImage.class);
+	}
 
 	public ConnexusImage(Long streamId, String user, String content, String bkUrl) {
-		this.streamId = streamId;
-		this.bkUrl = bkUrl;
-		this.comments = content;
-		createDate = new Date();
+		this(streamId, user, content, bkUrl, 0.0, 0.0);
 	}
 	
 	public ConnexusImage(Long streamId, String user, String content, String bkUrl, Double latitude, Double longitude) {

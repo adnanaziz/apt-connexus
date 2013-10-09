@@ -3,19 +3,26 @@ package com.adnan;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.http.*;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.logging.Logger;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 @SuppressWarnings("serial")
 public class AllStreamsServletAPI extends HttpServlet {
+	
+	private static final Logger log = Logger.getLogger(AllStreamsServletAPI.class.getName());
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		
+		log.warning("Entering AllStreamsServletAPI");
 		List<Stream> allStreams = OfyService.ofy().load().type(Stream.class).list();
         List<Stream> subsetStreams = null;
 		String jsonSelector = req.getParameter("selector");
