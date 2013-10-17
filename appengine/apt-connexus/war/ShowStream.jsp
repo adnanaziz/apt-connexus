@@ -8,6 +8,7 @@
 
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<%@ page import="org.apache.commons.codec.net.*" %>
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -43,7 +44,10 @@
 <p>
 <p>
 <h2>Add an image</h2>
-<form action="<%= blobstoreService.createUploadUrl("/upload?streamId=" + streamId + "&streamName=" + streamName) %>" 
+<!-- blobstoreService.createUploadUrl( new URLCodec().encode("/upload?streamId=" + streamId + "&streamName=" + "dummy"))  -->
+<!-- TODO: make stream name URI encoded! -->
+<form action="<%= 
+	blobstoreService.createUploadUrl( "/upload?streamId=" + streamId + "&streamName=" + "dummy") %>" 
 	method = "post" enctype="multipart/form-data">
 	<input type="file" name="myFile"><br> <input type="submit" value="Submit">
 </form>

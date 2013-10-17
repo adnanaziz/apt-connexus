@@ -46,9 +46,13 @@ public class TestUploadAPIServlet {
 	"/Users/adnanaziz/Desktop/papdi_chaat.jpg",
 	"/Users/adnanaziz/Desktop/samosa.jpg"};	
 	String apiUrl = "http://apt-connexus.appspot.com/UploadServletAPI?streamId=" 
-			+ "5629499534213120" 
+			+ "5910046797987840" 
 			+ "&streamName=First";
 
+	String apiUrlLocal = "http://localhost:8888/UploadServletAPI?streamId="
+			+ "5629499534213120" 
+			+ "&streamName=First";
+	while ( true ) {
 	for ( String fn : fileNames ) {
     		try {
       			b = Files.toByteArray( new File(fn));
@@ -61,10 +65,11 @@ public class TestUploadAPIServlet {
        		makeHTTPPOSTRequest(apiUrl, tstJson);
 		System.out.println("Uploaded " + fn );
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 	}
 
     }

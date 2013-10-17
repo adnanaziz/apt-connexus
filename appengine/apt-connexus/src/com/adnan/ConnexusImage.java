@@ -1,6 +1,7 @@
 package com.adnan;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.common.base.Joiner;
@@ -11,6 +12,8 @@ import com.googlecode.objectify.annotation.Id;
 @Entity
 public class ConnexusImage implements Comparable<ConnexusImage> {
 
+	private static final Logger log = Logger.getLogger(Upload.class.getName());
+	
 	@Id
 	public Long id;
 	public Long streamId;
@@ -44,11 +47,7 @@ public class ConnexusImage implements Comparable<ConnexusImage> {
 	public String toString() {
 		// Joiner is from google Guava (Java utility library), makes the toString method a little cleaner
 		Joiner joiner = Joiner.on(":").useForNull("NULL");
-		System.out.println(id);
-		System.out.println(streamId);
-		System.out.println(bkUrl);
-		System.out.println(createDate.toString());
-		return joiner.join(id.toString(), streamId, comments, bkUrl==null ? "null" : bkUrl, createDate.toString(), latitude, longitude);
+		return joiner.join(id, streamId, comments, bkUrl, createDate, latitude, longitude);
 	}
 
 	// Need this for sorting images by date

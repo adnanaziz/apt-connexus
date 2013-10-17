@@ -35,7 +35,7 @@ public class AllStreamsUtility {
 		  result.add(s);
 		}
 	}
-	return th;
+	return result;
   }
 
 }
