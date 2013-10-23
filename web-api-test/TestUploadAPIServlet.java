@@ -1,3 +1,8 @@
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
+
+import java.util.Date;
+
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,6 +25,20 @@ import com.google.common.io.Files;
 
 import java.util.Map;
 
+
+class Task implements Callable<String> {
+	 String apiUrl;
+	 String tstJson;
+	 public Task( String apiUrl, String tstJson ) {
+		 this.apiUrl = apiUrl;
+		 this.tstJson = tstJson;
+	 }	
+	 public String call() {
+		 TestUploadAPIServlet.makeHTTPPOSTRequest(apiUrl, tstJson);
+		 return "" + TestUploadAPIServlet.i.incrementAndGet() 
+				+ "\tUploaded " + " at time " + new Date();
+	 }
+ }
  
 /* Code to illustrate how to post an image from a local file to appengine.
  * Uses multiple libraries to achive this goal.
@@ -28,30 +47,25 @@ import java.util.Map;
  */
 
 public class TestUploadAPIServlet {
+
+    private static final int NTHREADS=4;
+
+    private static final ExecutorService exec = Executors.newFixedThreadPool(NTHREADS);
+    public static AtomicLong i = new AtomicLong(0);
  
     public static void main(String[] args) {
   	String tstJson;
   	byte[] b ={} ;
 
 	String[] fileNames = {
-	"/Users/adnanaziz/Desktop/China_Hong_Kong_City.jpg",
-	"/Users/adnanaziz/Desktop/Cover.jpg",
-	"/Users/adnanaziz/Desktop/adnan.jpg",
-	"/Users/adnanaziz/Desktop/butter_chicken.jpg",
-	"/Users/adnanaziz/Desktop/dosa_sambar.jpg",
-	"/Users/adnanaziz/Desktop/dum_diryani.jpg",
-	"/Users/adnanaziz/Desktop/gajar_ka_halwa.jpg",
-	"/Users/adnanaziz/Desktop/gol_gappa.jpg",
-	"/Users/adnanaziz/Desktop/naan.jpg",
-	"/Users/adnanaziz/Desktop/papdi_chaat.jpg",
-	"/Users/adnanaziz/Desktop/samosa.jpg"};	
+		"/Users/adnanaziz/Desktop/naan.jpg"
+	};
 	String apiUrl = "http://apt-connexus.appspot.com/UploadServletAPI?streamId=" 
-			+ "5910046797987840" 
-			+ "&streamName=First";
+			+ "5795199372492800" 
+			+ "&streamName=dummy";
 
 	String apiUrlLocal = "http://localhost:8888/UploadServletAPI?streamId="
-			+ "5629499534213120" 
-			+ "&streamName=First";
+			+ "5629499534213120" + "&streamName=First";
 	while ( true ) {
 	for ( String fn : fileNames ) {
     		try {
@@ -62,13 +76,30 @@ public class TestUploadAPIServlet {
     		Image img = new Image( 0.0d, 0.0d, b );
     		Gson gson = new Gson();
     		tstJson = gson.toJson(img);
-       		makeHTTPPOSTRequest(apiUrl, tstJson);
-		System.out.println("Uploaded " + fn );
+       		// makeHTTPPOSTRequest(apiUrl, tstJson);
+		Callable<String> t = new Task(apiUrl, tstJson);
+		// exec.execute(t);
+		Future<String> f = exec.submit(t);
 		try {
-			Thread.sleep(1);
+			Thread.sleep(1000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		try {
+			String s = f.get(); 
+			System.out.println(s);
+		} catch (ExecutionException e) {
+			System.out.println("ExecutionException");
+			e.printStackTrace();
+		} 
+		//catch (TimeoutException e) {
+ 		//	f.cancel(true);
+		//} 
+		catch (Exception e) 	{
+			System.out.println("GeneralException");
+			e.printStackTrace();
+		}
+		
 	}
 	}
 
@@ -101,3 +132,4 @@ public class TestUploadAPIServlet {
         }                        
     }    
 }
+
